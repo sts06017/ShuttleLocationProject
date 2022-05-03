@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_get_location.*
 import kr.rabbito.shuttlelocationproject.adapter.LocationAdapter
 import kr.rabbito.shuttlelocationproject.data.Location
-import kr.rabbito.shuttlelocationproject.function.setChildEventListener
+//import kr.rabbito.shuttlelocationproject.function.setChildEventListener
 
 class GetLocationActivity : AppCompatActivity() {
     val postList = mutableListOf<Location>()
@@ -23,6 +23,6 @@ class GetLocationActivity : AppCompatActivity() {
         val bookAdapter = LocationAdapter(this, postList)
         getLocation_rv_list.adapter = bookAdapter
 
-        setChildEventListener(postList, getLocation_rv_list, "Driver/tuk")
+//        setChildEventListener(postList, getLocation_rv_list, "Driver/tuk")
     }
 }
