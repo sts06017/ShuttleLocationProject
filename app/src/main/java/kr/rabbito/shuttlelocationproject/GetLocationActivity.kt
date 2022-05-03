@@ -23,6 +23,6 @@ class GetLocationActivity : AppCompatActivity() {
         val bookAdapter = LocationAdapter(this, postList)
         getLocation_rv_list.adapter = bookAdapter
 
-        setChildEventListener(postList, getLocation_rv_list, "Driver/tuk", "location")
+        setChildEventListener(postList, getLocation_rv_list, "Driver/tuk")
     }
 }

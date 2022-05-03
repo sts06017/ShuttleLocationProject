@@ -6,7 +6,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 
-inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: RecyclerView, path: String, orderBy: String) {
+inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: RecyclerView, path: String) {
     FirebaseDatabase.getInstance().getReference(path).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot?.let { snapshot ->
