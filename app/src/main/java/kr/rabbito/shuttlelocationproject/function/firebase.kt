@@ -6,9 +6,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 
-// Firebase RealtimeDatabase로부터 정보를 받아와 리사이클러뷰에 연결하는 함수
-// postList: 어댑터로 연결된 배열, rv: 리사이클러뷰 id, path: RealtimeDatabase 경로
-inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: RecyclerView, path: String) {
+inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: RecyclerView, path: String, orderBy: String) {
     FirebaseDatabase.getInstance().getReference(path).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot?.let { snapshot ->
