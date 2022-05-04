@@ -6,6 +6,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 fun showMarker(googleMap: GoogleMap, Latitude : Double, Hardness : Double) {
+
+    //hello
     val makerOptions = MarkerOptions()
     makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
         .position(LatLng(Latitude, Hardness))
