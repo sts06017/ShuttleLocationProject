@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // hello
+
         main_btn_toGetLocation.setOnClickListener {
             val intent = Intent(this, GetLocationActivity::class.java)
             startActivity(intent)
