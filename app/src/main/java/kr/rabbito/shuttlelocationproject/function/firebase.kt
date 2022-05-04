@@ -5,19 +5,20 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import kr.rabbito.shuttlelocationproject.data.Location
 
-inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: RecyclerView, path: String, orderBy: String) {
+fun setChildEventListener(postList: MutableList<Location>, rv: RecyclerView, path: String) {
     FirebaseDatabase.getInstance().getReference(path).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot?.let { snapshot ->
-                    val post = snapshot.getValue(T::class.java)
+                    val post = snapshot.getValue(Location::class.java)
                     post?.let {
                         if (previousChildName == null) {
                             postList.add(it)
                             rv.adapter?.notifyItemInserted(postList.size - 1)
                         } else {
                             val prevIndex =
-                                postList.map { it }.indexOf(previousChildName)
+                                postList.map { it.toString() }.indexOf(previousChildName)
                             postList.add(prevIndex + 1, post)
                             rv.adapter?.notifyItemInserted(prevIndex + 1)
                         }
@@ -30,10 +31,10 @@ inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: Recy
                 previousChildName: String?
             ) {
                 snapshot?.let { snapshot ->
-                    val post = snapshot.getValue(T::class.java)
+                    val post = snapshot.getValue(Location::class.java)
                     post?.let {
                         val prevIndex =
-                            postList.map { it }.indexOf(previousChildName)
+                            postList.map { it.toString() }.indexOf(previousChildName)
                         postList[prevIndex + 1] = post
                         rv.adapter?.notifyItemChanged(prevIndex + 1)
                     }
@@ -42,7 +43,7 @@ inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: Recy
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot?.let {
-                    val post = snapshot.getValue(T::class.java)
+                    val post = snapshot.getValue(Location::class.java)
                     post?.let { post ->
                         val existIndex = postList.map { it }.indexOf(post)
                         postList.removeAt(existIndex)
@@ -52,7 +53,7 @@ inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: Recy
                             rv.adapter?.notifyItemChanged(postList.size - 1)
                         } else {
                             val prevIndex =
-                                postList.map { it }.indexOf(previousChildName)
+                                postList.map { it.toString() }.indexOf(previousChildName)
                             postList.add(prevIndex + 1, post)
                             rv.adapter?.notifyItemChanged(prevIndex + 1)
                         }
@@ -62,7 +63,7 @@ inline fun <reified  T> setChildEventListener(postList: MutableList<T>, rv: Recy
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 snapshot?.let {
-                    val post = snapshot.getValue(T::class.java)
+                    val post = snapshot.getValue(Location::class.java)
                     post?.let { post ->
                         val existIndex = postList.map { it }.indexOf(post)
                         postList.removeAt(existIndex)
