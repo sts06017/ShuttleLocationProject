@@ -9,7 +9,8 @@ import com.google.firebase.database.FirebaseDatabase
 import kr.rabbito.shuttlelocationproject.data.Location
 
 fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path: String) {
-    FirebaseDatabase.getInstance().getReference(path).addChildEventListener(object : ChildEventListener {
+    FirebaseDatabase.getInstance().getReference(path)
+        .addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot.let { snapshot ->
                     val post = snapshot.getValue(Location::class.java)
@@ -17,10 +18,12 @@ fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path:
                         if (previousChildName == null) {
                             postList.add(it)
                         } else {
-                            val prevIndex = postList.map { it.toString() }.indexOf(previousChildName)
+                            val prevIndex =
+                                postList.map { it.driverId }.indexOf(previousChildName)
                             postList.add(prevIndex + 1, post)
                         }
                     }
+                }.let {
                     showMarkersOnMap(postList, map)
                 }
             }
@@ -33,10 +36,11 @@ fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path:
                     val post = snapshot.getValue(Location::class.java)
                     post?.let {
                         val prevIndex =
-                            postList.map { it.toString() }.indexOf(previousChildName)
+                            postList.map { it.driverId }.indexOf(previousChildName)
                         postList[prevIndex + 1] = post
-                        showMarkersOnMap(postList, map)
                     }
+                }.let {
+                    showMarkersOnMap(postList, map)
                 }
             }
 
@@ -44,17 +48,18 @@ fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path:
                 snapshot.let {
                     val post = snapshot.getValue(Location::class.java)
                     post?.let { post ->
-                        val existIndex = postList.map { it }.indexOf(post)
+                        val existIndex = postList.map{it.driverId}.indexOf(post.driverId)
                         postList.removeAt(existIndex)
                         if (previousChildName == null) {
                             postList.add(post)
                         } else {
                             val prevIndex =
-                                postList.map { it.toString() }.indexOf(previousChildName)
+                                postList.map { it.driverId }.indexOf(previousChildName)
                             postList.add(prevIndex + 1, post)
                         }
-                        showMarkersOnMap(postList, map)
                     }
+                }.let {
+                    showMarkersOnMap(postList, map)
                 }
             }
 
@@ -62,15 +67,16 @@ fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path:
                 snapshot.let {
                     val post = snapshot.getValue(Location::class.java)
                     post?.let { post ->
-                        val existIndex = postList.map { it }.indexOf(post)
+                        val existIndex = postList.map{it.driverId}.indexOf(post.driverId)
                         postList.removeAt(existIndex)
-                        showMarkersOnMap(postList, map)
                     }
+                }.let {
+                    showMarkersOnMap(postList, map)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                error?.toException()?.printStackTrace()
+                error.toException().printStackTrace()
             }
         })
 }
@@ -78,7 +84,6 @@ fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path:
 fun showMarkersOnMap(list: MutableList<Location>, map: GoogleMap) {
     map.clear()
     for (i in list.indices) {
-        Log.d("locationTest2", list[i].longitude.toString())
         showMarker(map, list[i].driverName, list[i].latitude, list[i].longitude)
     }
 }
