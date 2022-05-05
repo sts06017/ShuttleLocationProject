@@ -32,13 +32,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         override fun onMapReady(googleMap: GoogleMap) {
             map = googleMap
 
-            // Add a marker in Sydney and move the camera
-            val yeouido = LatLng(37.521814, 126.923596)
-            map.addMarker(MarkerOptions().position(yeouido).title("Marker in Yeouido"))
-            map.moveCamera(CameraUpdateFactory.newLatLng(yeouido))
+            // Firebase에서 정보 받아와 띄우게 구현
         }
-
-
-
 }
 
