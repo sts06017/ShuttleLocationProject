@@ -1,29 +1,30 @@
 package kr.rabbito.shuttlelocationproject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.gms.maps.CameraUpdateFactory
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_main.*
+import kr.rabbito.shuttlelocationproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+        private var mBinding: ActivityMainBinding? = null
+        private val binding get() = mBinding!!
 
         private lateinit var map: GoogleMap
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
+            mBinding = ActivityMainBinding.inflate(layoutInflater)
+
+            setContentView(binding.root)
 
             val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
-            main_btn_toGetLocation.setOnClickListener {
+            binding.mainBtnToGetLocation.setOnClickListener {
                 val intent = Intent(this, GetLocationActivity::class.java)
                 startActivity(intent)
             }

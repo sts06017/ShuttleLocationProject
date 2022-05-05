@@ -1,5 +1,6 @@
 package kr.rabbito.shuttlelocationproject.function
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -12,6 +13,7 @@ fun setChildEventListener(postList: MutableList<Location>, rv: RecyclerView, pat
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 snapshot?.let { snapshot ->
                     val post = snapshot.getValue(Location::class.java)
+                    Log.d("test", post!!.driverName)
                     post?.let {
                         if (previousChildName == null) {
                             postList.add(it)
