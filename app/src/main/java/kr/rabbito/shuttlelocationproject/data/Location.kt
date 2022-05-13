@@ -1,11 +1,10 @@
 package kr.rabbito.shuttlelocationproject.data
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 class Location(
-    val location: String
-) : Parcelable {
-    constructor() : this("")
+    var driverId: String,
+    val driverName: String,
+    var latitude: Double,
+    var longitude: Double
+) {
+    constructor() : this("", "", 0.0, 0.0)
 }
