@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Post(
-    postId: String,
-    postTitle: String,
-    postContent: String,
-    postPassword: String,
-    postDate: String
+    var postId: String,
+    var postTitle: String,
+    var postContent: String,
+    var postPassword: String,
+    var postDate: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         TODO("postId"),

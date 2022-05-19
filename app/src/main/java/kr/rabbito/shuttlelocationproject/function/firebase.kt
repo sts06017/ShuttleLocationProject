@@ -1,12 +1,14 @@
 package kr.rabbito.shuttlelocationproject.function
 
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.GoogleMap
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import kr.rabbito.shuttlelocationproject.data.Location
+import kr.rabbito.shuttlelocationproject.data.Post
 
 fun setChildEventListener(postList: MutableList<Location>, map: GoogleMap, path: String) {
     FirebaseDatabase.getInstance().getReference(path)
