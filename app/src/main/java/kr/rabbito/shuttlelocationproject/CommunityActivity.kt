@@ -1,6 +1,7 @@
 package kr.rabbito.shuttlelocationproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
@@ -12,6 +13,8 @@ import kr.rabbito.shuttlelocationproject.data.Post
 import kr.rabbito.shuttlelocationproject.databinding.ActivityCommunityBinding
 
 class CommunityActivity : AppCompatActivity() {
+
+    val TAG :String = "TAG"
     private var mBinding: ActivityCommunityBinding? = null
     private val binding get() = mBinding!!
 
@@ -20,7 +23,7 @@ class CommunityActivity : AppCompatActivity() {
         mBinding = ActivityCommunityBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
+        Log.d(TAG,"CommunityActivity called()")
         val postList = mutableListOf<Post>()
 
         val layoutManager = LinearLayoutManager(this)
@@ -29,6 +32,7 @@ class CommunityActivity : AppCompatActivity() {
 
         binding.communityRvList.layoutManager = layoutManager
         binding.communityRvList.adapter = PostAdapter(this, postList)
+        Log.d(TAG,"CommunityActivity Adatper called()")
 
         FirebaseDatabase.getInstance().getReference("Community")
             .orderByChild("postDate").addChildEventListener(object : ChildEventListener {

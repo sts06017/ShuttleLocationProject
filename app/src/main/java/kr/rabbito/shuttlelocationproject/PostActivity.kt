@@ -18,7 +18,7 @@ class PostActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val post = Post("", "", "", "", "")
+        val post = Post()
         val ref = FirebaseDatabase.getInstance().getReference("Community")
 
         val key = ref.push().key!!
@@ -31,6 +31,9 @@ class PostActivity : AppCompatActivity() {
             post.postId = key
 
             ref.child(key).setValue(post)
+
+            return@setOnClickListener
+
         }
     }
 }
