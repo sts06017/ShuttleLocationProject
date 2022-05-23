@@ -29,6 +29,7 @@ class PostActivity : AppCompatActivity() {
             post.postDate = System.currentTimeMillis().toString()
 
             post.postId = key
+            post.postCommentId = ""
 
             ref.child(key).setValue(post)
 

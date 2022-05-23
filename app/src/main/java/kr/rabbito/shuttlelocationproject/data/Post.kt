@@ -9,6 +9,7 @@ class Post() : Parcelable {
     var postContent: String=""
     var postPassword: String=""
     var postDate: String=""
+    var postCommentId: String = ""
 
     constructor(parcel: Parcel) : this(){
         postId = parcel.readString()!!
@@ -16,7 +17,7 @@ class Post() : Parcelable {
         postContent = parcel.readString()!!
         postPassword = parcel.readString()!!
         postDate = parcel.readString()!!
-
+        postCommentId = parcel.readString()!!
     }
 
     //constructor(): this("", "", "", "", "")
@@ -27,6 +28,7 @@ class Post() : Parcelable {
         parcel.writeString(postContent)
         parcel.writeString(postPassword)
         parcel.writeString(postDate)
+        parcel.writeString(postCommentId)
 
 
     }
@@ -44,4 +46,15 @@ class Post() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+//    fun toMap():Map<String,Any?>{
+//        return mapOf(
+//            "postId" to postId,
+//            "postTitle" to postTitle,
+//            "postContent" to postContent,
+//            "postPassword" to postContent,
+//            "postDate" to postDate,
+//            "posCommnetId" to postCommentId
+//        )
+//    }
 }
