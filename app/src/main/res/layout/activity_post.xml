@@ -10,6 +10,7 @@
         android:id="@+id/post_et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="제목을 입력하세요 "
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,6 +18,7 @@
 
     <EditText
         android:id="@+id/post_et_content"
+        android:hint="내용을 입력하세요 "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/post_et_title"
@@ -27,9 +29,20 @@
         android:id="@+id/post_btn_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/post_et_content"
+        app:layout_constraintTop_toBottomOf="@id/post_et_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/post_et_password"
+        android:hint="비밀번호를 입력하세요 "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/post_et_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
