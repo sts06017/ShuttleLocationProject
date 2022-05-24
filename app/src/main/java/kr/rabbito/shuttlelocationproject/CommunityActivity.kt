@@ -23,7 +23,8 @@ class CommunityActivity : AppCompatActivity() {
         mBinding = ActivityCommunityBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        Log.d(TAG,"CommunityActivity called()")
+        //Log.d(TAG,"CommunityActivity called()")
+        //postList -> RecyclerView에 나올 post 항목들 저장하는 공간
         val postList = mutableListOf<Post>()
 
         val layoutManager = LinearLayoutManager(this)
@@ -34,7 +35,9 @@ class CommunityActivity : AppCompatActivity() {
         binding.communityRvList.adapter = PostAdapter(this, postList)
         Log.d(TAG,"CommunityActivity Adatper called()")
 
-        FirebaseDatabase.getInstance().getReference("Community")
+
+        //Firebase 변화 감지
+        FirebaseDatabase.getInstance().getReference("Community/Post")
             .orderByChild("postDate").addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     snapshot.let { snapshot ->

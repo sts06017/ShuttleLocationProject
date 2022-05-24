@@ -3,13 +3,16 @@ package kr.rabbito.shuttlelocationproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kr.rabbito.shuttlelocationproject.data.Comment
+import kr.rabbito.shuttlelocationproject.data.DeleteDialog
 import kr.rabbito.shuttlelocationproject.data.Post
 import kr.rabbito.shuttlelocationproject.databinding.ActivityPostDetailBinding
+import kr.rabbito.shuttlelocationproject.function.hashSHA256
 
 class PostDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityPostDetailBinding? = null
@@ -39,6 +42,26 @@ class PostDetailActivity : AppCompatActivity() {
         //key == commentId
         val commentKey = commentRef.push().key!!
 
+        binding.postdetailBtnDelete.setOnClickListener {
+            val dialog = DeleteDialog(this)
+            dialog.showDialog()
+            dialog.setOnClickListner(object:DeleteDialog.ButtonClickListener{
+                override fun onClicked(text: String) {
+                    val inputPassword = text.hashSHA256()
+                    Toast.makeText(this@PostDetailActivity, inputPassword, Toast.LENGTH_SHORT).show()
+                    if (inputPassword == post.postPassword ){
+
+                        postRef.child(post.postId).removeValue()
+                        Toast.makeText(this@PostDetailActivity, "삭제 완료", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    else{
+                        Toast.makeText(this@PostDetailActivity, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+
 
         // post_detail.xml
         binding.postdetailTvTitle.text = post.postTitle
@@ -46,10 +69,18 @@ class PostDetailActivity : AppCompatActivity() {
         binding.postdetailTvDate.text = post.postDate
         binding.postdetailTvPassword.text = post.postPassword
 
-     
-        Firebase.database.getReference("Community/Comment").child(post.postCommentId).get().addOnSuccessListener {
-            val comment = it.getValue(Comment::class.java)!!
-            binding.postdetailTvCommentdetail.text = comment.comment
+
+        //comment 없을 경우 NullPointerException 예외 처리?
+        Firebase.database.getReference("Community/Comment").
+            child(post.postCommentId).get().addOnCompleteListener {task ->
+            if (task.isSuccessful){
+                val comment = task.result.getValue(Comment::class.java)
+                // 답변 내용 어떤 형식으로 출력?
+                binding.postdetailTvCommentdetail.text = "답변 내용 : "+ comment?.comment
+            }
+            else{
+                binding.postdetailTvCommentdetail.visibility = View.INVISIBLE
+            }
         }
 
 //
