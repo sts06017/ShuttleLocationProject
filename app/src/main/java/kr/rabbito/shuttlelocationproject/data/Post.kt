@@ -10,6 +10,8 @@ class Post() : Parcelable {
     var postPassword: String=""
     var postDate: String=""
     var postCommentId: String = ""
+    // postDetailActivity에서 Comment Class의 postId를 이용하여 해당 postView에 comment.text 설정
+    // 해야할 것 -> firebase에서 특정 객체의 key(postId)를 검색하여 해당하는 key 존재시 내용 가져오기
 
     constructor(parcel: Parcel) : this(){
         postId = parcel.readString()!!

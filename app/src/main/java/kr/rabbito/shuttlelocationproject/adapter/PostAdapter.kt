@@ -60,6 +60,9 @@ class PostAdapter(val context: Context,
             builder.setTitle("삭제하시겠습니까?")
                 .setMessage("제목 : "+dataList[position].postTitle)
                 .setPositiveButton("삭제"){_,_->
+
+                    //dialog에 editText(user input password) 추가하여 password 일치 확인
+                    //if (dataList.position)
                     Firebase.database.getReference("Community").child(dataList[position].postId)
                         .removeValue()
                 }

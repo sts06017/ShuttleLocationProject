@@ -33,8 +33,10 @@ class PostActivity : AppCompatActivity() {
 
             ref.child(key).setValue(post)
 
-            return@setOnClickListener
 
+            finish()
         }
+
+
     }
 }
