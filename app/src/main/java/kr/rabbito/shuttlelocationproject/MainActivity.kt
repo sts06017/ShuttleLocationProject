@@ -27,10 +27,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
-            binding.mainBtnToPost.setOnClickListener {
-                val intent = Intent(this, PostActivity::class.java)
-                startActivity(intent)
-            }
+            //postActivity -> communityActivity에서 btn 구현 완료
+//            binding.mainBtnToPost.setOnClickListener {
+//                val intent = Intent(this, PostActivity::class.java)
+//                startActivity(intent)
+//            }
 
             binding.mainBtnToCommunity.setOnClickListener {
                 val intent = Intent(this, CommunityActivity::class.java)

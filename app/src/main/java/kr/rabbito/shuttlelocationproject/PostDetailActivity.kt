@@ -35,13 +35,12 @@ class PostDetailActivity : AppCompatActivity() {
         val comment = Comment()
 
         //Toast.makeText(this,"ClcikListener 실행 완료 ",Toast.LENGTH_SHORT).show()
-
-
         val commentRef = FirebaseDatabase.getInstance().getReference("Community/Comment")
         val postRef = FirebaseDatabase.getInstance().getReference("Community/Post")
         //key == commentId
         val commentKey = commentRef.push().key!!
 
+        //deleteBtn -> deleteDialog show()
         binding.postdetailBtnDelete.setOnClickListener {
             val dialog = DeleteDialog(this)
             dialog.showDialog()
@@ -50,8 +49,10 @@ class PostDetailActivity : AppCompatActivity() {
                     val inputPassword = text.hashSHA256()
                     Toast.makeText(this@PostDetailActivity, inputPassword, Toast.LENGTH_SHORT).show()
                     if (inputPassword == post.postPassword ){
-
+                        //post 삭제
                         postRef.child(post.postId).removeValue()
+                        //comment 삭제
+                        commentRef.child(post.postCommentId).removeValue()
                         Toast.makeText(this@PostDetailActivity, "삭제 완료", Toast.LENGTH_SHORT).show()
                         finish()
                     }
@@ -71,13 +72,22 @@ class PostDetailActivity : AppCompatActivity() {
 
 
         //comment 없을 경우 NullPointerException 예외 처리?
+
+        //TODO(
         Firebase.database.getReference("Community/Comment").
             child(post.postCommentId).get().addOnCompleteListener {task ->
             if (task.isSuccessful){
                 val comment = task.result.getValue(Comment::class.java)
                 // 답변 내용 어떤 형식으로 출력?
-                binding.postdetailTvCommentdetail.text = "답변 내용 : "+ comment?.comment
-            }
+                // 답변 없을 경우 게시판에 답변 어떻게 노출?
+                if (comment?.comment != null){
+                    //comment 너무 늦게 뜸
+                    binding.postdetailTvCommentdetail.text = "답변 내용 : "+ comment.comment
+                }
+                else{
+                    binding.postdetailTvCommentdetail.visibility = View.INVISIBLE
+
+                }}
             else{
                 binding.postdetailTvCommentdetail.visibility = View.INVISIBLE
             }
@@ -102,20 +112,9 @@ class PostDetailActivity : AppCompatActivity() {
             commentRef.child(commentKey).setValue(comment)
             Toast.makeText(this,"Comment 등록 완료",Toast.LENGTH_SHORT).show()
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+}
+
+fun CommentDelete(){
+    TODO("comment 삭제할 떄 User.mode에 따라 삭제?")
 }

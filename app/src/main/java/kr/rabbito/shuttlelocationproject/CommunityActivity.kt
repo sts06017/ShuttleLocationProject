@@ -1,5 +1,6 @@
 package kr.rabbito.shuttlelocationproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +36,10 @@ class CommunityActivity : AppCompatActivity() {
         binding.communityRvList.adapter = PostAdapter(this, postList)
         Log.d(TAG,"CommunityActivity Adatper called()")
 
-
+        binding.communityBtnPost.setOnClickListener {
+            val intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
+        }
         //Firebase 변화 감지
         FirebaseDatabase.getInstance().getReference("Community/Post")
             .orderByChild("postDate").addChildEventListener(object : ChildEventListener {

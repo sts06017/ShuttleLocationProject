@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="댓글을 입력하세요 "
+        android:hint="댓글을 입력하세요 "
         app:layout_constraintBottom_toTopOf="@id/postdetail_btn_comment"
         app:layout_constraintLeft_toLeftOf="parent"
         />
