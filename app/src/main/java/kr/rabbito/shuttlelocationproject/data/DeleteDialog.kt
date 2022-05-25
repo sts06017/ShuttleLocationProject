@@ -12,7 +12,7 @@ class DeleteDialog(context:Context) {
     private val dialog  = Dialog(context)
 
     fun showDialog(){
-        dialog.setContentView(R.layout.deletedialog)
+        dialog.setContentView(R.layout.delete_dialog)
         // dialog 크기 조절
         dialog.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,

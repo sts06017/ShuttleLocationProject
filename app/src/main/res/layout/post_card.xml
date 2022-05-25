@@ -8,7 +8,7 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/post_tv_title"
+        android:id="@+id/postcard_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,11 +17,11 @@
         android:background="@android:color/holo_blue_dark"/>
 
     <TextView
-        android:id="@+id/post_tv_content"
+        android:id="@+id/postcard_tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/postcard_tv_title"
         android:background="@android:color/holo_blue_dark"
         android:layout_margin="5dp"/>
 
