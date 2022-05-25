@@ -21,21 +21,35 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.rabbito.shuttlelocationproject.function.showRoute
+import kr.rabbito.shuttlelocationproject.data.Location
+import kr.rabbito.shuttlelocationproject.databinding.ActivityMainBinding
+import kr.rabbito.shuttlelocationproject.function.setChildEventListener
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+        private var mBinding: ActivityMainBinding? = null
+        private val binding get() = mBinding!!
 
         private lateinit var map: GoogleMap
+        private val postList = mutableListOf<Location>()
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
+            mBinding = ActivityMainBinding.inflate(layoutInflater)
+
+            setContentView(binding.root)
 
             val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
-            main_btn_toGetLocation.setOnClickListener {
-                val intent = Intent(this, GetLocationActivity::class.java)
+            //postActivity -> communityActivity에서 btn 구현 완료
+//            binding.mainBtnToPost.setOnClickListener {
+//                val intent = Intent(this, PostActivity::class.java)
+//                startActivity(intent)
+//            }
+
+            binding.mainBtnToCommunity.setOnClickListener {
+                val intent = Intent(this, CommunityActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -57,10 +71,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
             showRoute(map);
 
+            setChildEventListener(postList, map, "Driver/tuk")
         }
-
-    //
-
-
 }
 

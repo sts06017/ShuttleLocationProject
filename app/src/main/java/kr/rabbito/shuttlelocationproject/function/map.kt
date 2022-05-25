@@ -1,16 +1,14 @@
 package kr.rabbito.shuttlelocationproject.function
 
-import com.google.android.gms.maps.CameraUpdateFactory
+import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-fun showMarker(googleMap: GoogleMap, Latitude : Double, Hardness : Double) {
-
-    //hello test request
+fun showMarker(googleMap: GoogleMap, driverName: String, latitude : Double, longitude : Double) {
     val makerOptions = MarkerOptions()
-    makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
-        .position(LatLng(Latitude, Hardness))
-        .title("추가한마커")
+    makerOptions
+        .position(LatLng(latitude, longitude))
+        .title(driverName)
     googleMap.addMarker(makerOptions)
 }
