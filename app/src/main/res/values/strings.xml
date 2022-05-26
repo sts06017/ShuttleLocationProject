@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">ShuttleLocationProject</string>
+    <string name="app_name">셔틀위치알리미</string>
     <string name="title_activity_maps">MapsActivity</string>
 </resources>
